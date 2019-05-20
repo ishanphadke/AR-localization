@@ -17,7 +17,7 @@ class getLoc : public PoseRecipient {
 public:
   getLoc(tf::TransformListener &tfL, MoveBaseClient &ac);
 
-  geometry_msgs::Pose receivePose(geometry_msgs::Pose &pose, int markerID);
+  void receivePose(geometry_msgs::Pose &pose, int markerID);
 
   bool seenMarker();
 
