@@ -7,7 +7,7 @@
 class TFBroadcastPR : public PoseRecipient{
 public:
   TFBroadcastPR(std::string fromFrame, std::string toFrame);
-  void receivePose(geometry_msgs::Pose &pose);
+  geometry_msgs::Pose receivePose(geometry_msgs::Pose &pose);
   ~TFBroadcastPR();
 
 protected:
