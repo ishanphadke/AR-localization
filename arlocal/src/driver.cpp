@@ -105,8 +105,6 @@ void setFinalPose(int markerID, geometry_msgs::Pose markerPoseInRelation, map<in
   // multiply vector and rotation matrix to get final points
   Eigen::Vector3d newVector= transformation*markerVector;
   
-//   realRobotPose.position.z= markerPoseInRelation.position.z+ realMarkerPose.position.z;
-  
   geometry_msgs::PoseWithCovarianceStamped finalPose;
   initialPose.header.frame_id= "base_link";
   initialPose.header.stamp= ros::Time::now();
