@@ -24,11 +24,9 @@ int main(int argc, char **argv) {
   initialPose.pose.pose.position.x = 0;
   initialPose.pose.pose.position.y = 0;
   initialPose.pose.pose.position.z = 0;
-
-  tf::Quaternion q = tf::createQuaternionFromYaw(0);
-  geometry_msgs::Quaternion qMsg;
-  tf::quaternionTFToMsg(q, qMsg);
-  initialPose.pose.pose.orientation = qMsg;
+  
+  initialPose.pose.pose.orientation = tf::createQuaternionFromYaw((30.0*M_PI)/180.0);
+  
 
   initialPose.pose.covariance[6*0+0] = 0.5 * 0.5;
   initialPose.pose.covariance[6*1+1] = 0.5 * 0.5;
