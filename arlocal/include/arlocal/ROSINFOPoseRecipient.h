@@ -5,7 +5,7 @@
 
 class ROSINFOPoseRecipient : public PoseRecipient {
 public:
-  geometry_msgs::Pose receivePose(geometry_msgs::Pose &pose);
+  void receivePose(geometry_msgs::Pose &pose);
   
 };
 
