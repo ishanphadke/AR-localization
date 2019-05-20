@@ -36,6 +36,8 @@ int main(int argc, char **argv) {
 
   frontierExplorer explorer(tf_l, ac);
   explorer.move(getLoc);
+  
+  setFinalPose(getLoc
 
   ros::AsyncSpinner spinner(1);
   spinner.start();
