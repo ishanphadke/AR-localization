@@ -26,11 +26,6 @@ int main(int argc, char **argv) {
   initialPose.pose.pose.position.z = 0;
   
   initialPose.pose.pose.orientation = tf::createQuaternionFromYaw((30.0*M_PI)/180.0);
-  
-
-  initialPose.pose.covariance[6*0+0] = 0.5 * 0.5;
-  initialPose.pose.covariance[6*1+1] = 0.5 * 0.5;
-  initialPose.pose.covariance[6*5+5] = M_PI/12.0 * M_PI/12.0;
 
   setInitialPose.publish(initialPose);
 
