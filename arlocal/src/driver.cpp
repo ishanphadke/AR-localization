@@ -100,7 +100,8 @@ void setFinalPose(int markerID, geometry_msgs::Pose markerPoseInRelation, map<in
                    sin(yaw), cos(yaw), 0,
                    0, 0, 1;
   // put point into vector
-  Eigen::Vector3d markerVector(markerPoseInRelation.position.x, markerPoseInRelation.position.y, markerPoseInRelation.position.z);
+  double distance= sqrt(pow(markerPoseInRelation.position.x, 2), pow(markerPoseInRelation.position.y, 2));
+  Eigen::Vector3d markerVector(distance, 0, markerPoseInRelation.position.z);
   
   // multiply vector and rotation matrix to get final points
   Eigen::Vector3d newVector= transformation*markerVector;
