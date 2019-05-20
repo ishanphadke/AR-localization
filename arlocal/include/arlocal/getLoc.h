@@ -29,6 +29,8 @@ protected:
   double x;
   double y;
   double z;
+  geometry_msgs::Pose markerPose;
+  int markerID;
 };
 
 #endif
