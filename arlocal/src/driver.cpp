@@ -8,6 +8,7 @@
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <cmath>
 #include <fstream>
+#include <Eigen>
 #include <actionlib/client/simple_action_client.h> 
 #include <map> 
 
@@ -88,18 +89,30 @@ void setFinalPose(int markerID, geometry_msgs::Pose markerPoseInRelation, map<in
 {
   geometry_msgs::Pose realMarkerPose= markers.find(markerID)->second;
   
-  geometry_msgs::Pose realRobotPose;
+  tf::Matrix3x3 getAngle(markerPoseInRelation.orientation);
+  double roll, pitch, yaw;
+  m.getRPY(roll, pitch, yaw);
   
-  realRobotPose.position.x= markerPoseInRelation.position.x+ realMarkerPose.position.x;
-  realRobotPose.position.y= markerPoseInRelation.position.y+ realMarkerPose.position.y;
-  realRobotPose.position.z= markerPoseInRelation.position.z+ realMarkerPose.position.z;
+  Eigen::Matrix<double, 3, 3> transformation;
+  
+  // make a rotation matrix to put the vector in the correct orientation
+  transformation<< cos(yaw), -sin(yaw), 0,
+                   sin(yaw), cos(yaw), 0,
+                   0, 0, 1;
+  // put point into vector
+  Eigen::Vector3d markerVector(markerPoseInRelation.position.x, markerPoseInRelation.position.y, markerPoseInRelation.position.z);
+  
+  // multiply vector and rotation matrix to get final points
+  Eigen::Vector3d newVector= transformation*markerVector;
+  
+//   realRobotPose.position.z= markerPoseInRelation.position.z+ realMarkerPose.position.z;
   
   geometry_msgs::PoseWithCovarianceStamped finalPose;
   initialPose.header.frame_id= "base_link";
   initialPose.header.stamp= ros::Time::now();
-  initialPose.pose.pose.position.x= markerPoseInRelation.position.x+ realMarkerPose.position.x;
-  initialPose.pose.pose.position.y= markerPoseInRelation.position.y+ realMarkerPose.position.y;
-  initialPose.pose.pose.position.z= markerPoseInRelation.position.z+ realMarkerPose.position.z; 
+  initialPose.pose.pose.position.x= newVector[x]+ realMarkerPose.position.x;
+  initialPose.pose.pose.position.y= newVector[y]+ realMarkerPose.position.y;
+  initialPose.pose.pose.position.z= newVector[z]+ realMarkerPose.position.z; 
   
   initialPose.pose.pose.orientation.w= 1;
 
