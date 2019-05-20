@@ -18,8 +18,10 @@ public:
   getLoc(tf::TransformListener &tfL, MoveBaseClient &ac);
 
   void receivePose(geometry_msgs::Pose &pose, int markerID);
-
-  geometry_msgs::Pose getDest(geometry_msgs::Pose &pose);
+  
+  geometry_msgs::Pose markerPose getMarkerPose();
+  
+  int getMarkerID();
 
   bool seenMarker();
 
@@ -31,6 +33,8 @@ protected:
   double x;
   double y;
   double z;
+  geometry_msgs::Pose markerPose;
+  int markerID;
 };
 
 #endif
