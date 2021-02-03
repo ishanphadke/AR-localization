@@ -11,8 +11,8 @@
       goal.target_pose.header.stamp= ros::Time::now();
       double distance= 5;
       double angle= 0;
-      while(!alvarSeeker.seenMarker())
-      {
+      //while(!alvarSeeker.seenMarker())
+      //{
         goal.target_pose.pose.position.x= distance;
 
         angle= (angle*M_PI)/180;
@@ -39,7 +39,7 @@
            distance-= 1;
            angle+=30;
          }
-      }
+      //}
   }
 
   frontierExplorer::~frontierExplorer() {};
